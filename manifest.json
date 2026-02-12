@@ -1,0 +1,12 @@
+{
+  "name": "AI 极限推拉模拟器",
+  "description": "中国式过年的精髓——红包我不想要（其实我想要）。AI 极限推拉模拟器，带你体验最真实的社交潜规则。",
+  "version": "1.0.0",
+  "scopes": [
+    "user.info",
+    "chat"
+  ],
+  "redirect_uris": [
+    "http://localhost:3000/api/auth/callback"
+  ]
+}
