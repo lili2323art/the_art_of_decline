@@ -11,8 +11,16 @@ export async function GET(req: NextRequest) {
 
     try {
         const params = new URLSearchParams();
-        const clientId = process.env.SECONDME_CLIENT_ID || '';
+        const clientId = process.env.SECONDME_CLIENT_ID || process.env.NEXT_PUBLIC_SECONDME_CLIENT_ID || '';
         const clientSecret = process.env.SECONDME_CLIENT_SECRET || '';
+
+        if (!clientId || !clientSecret) {
+            console.error('Environment variables missing: SECONDME_CLIENT_ID or SECONDME_CLIENT_SECRET');
+            return NextResponse.json({
+                error: 'Configuration Error',
+                details: 'Missing Client ID or Secret on server environment.'
+            }, { status: 500 });
+        }
         // Use the incoming host to reconstruct the redirect_uri to match exactly what we sent
         const origin = new URL(req.url).origin;
         const redirectUri = process.env.SECONDME_REDIRECT_URI || `${origin}/api/auth/callback`;
